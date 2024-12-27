@@ -101,3 +101,36 @@ Simple encrypted messaging
        - so, (5 - 12) % 26 = 19 --> t
      - repeat it until we got the decrypted message "attackatdawn"
      
+## XOR cipher:
+1. open terminal, run: python sender.py
+2. open another terminal, run: python receiver.py
+3. in sender, for example:
+   - encryption option: 3
+   - key: lemon
+4. in receiver, use appropriate decryption option:
+   - decryption option: 3
+   - key: lemon
+5. in sender, for example:
+   >> Attack at dawn!
+6. in receiver we will get:
+   >> Attack at dawn!
+
+![image](https://github.com/user-attachments/assets/63f38b8f-2023-4d76-b5a0-2f46ee59e6c5)
+7. in redis insight, we will get:
+    ![image](https://github.com/user-attachments/assets/1ebf1c30-50bc-44c1-a217-b3e35b76a9c0)
+8. explanation:
+   - length of "Attack at dawn!" is 15 characters, so the key will become "lemonlemonlemon"
+   - see https://en.wikipedia.org/wiki/List_of_Unicode_characters
+   - example 1:
+     - message[0] -> A = 65 = 01000001
+     - key[0] -> l = 108 = 01101100
+     - encrypted_message = message XOR key = 01000001 XOR 01101100 = 00101101 = 45 = hyphen-minus (-)
+     - decrypted_message = encrypted_message XOR key = 00101101 XOR 01101100 = 01000001 = 65 = A
+   - example 2:
+     - message[14] -> ! = 33 = 00100001
+     - key[14] -> n = 110 = 01101110
+     - encrypted_message = message XOR key = 00100001 XOR 01101110 = 01001111 = 79 = O
+     - decrypted_message = encrypted_message XOR key = 01001111 XOR 01101110 = 00100001 = 33 = !
+
+
+

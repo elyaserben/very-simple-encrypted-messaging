@@ -6,7 +6,7 @@ import encrypt as dec
 ### ------------------- MAIN ----------------------------
 
 
-print("encryption option:\n[1] Caesar Cipher\n[2] Vigenere Cipher")
+print("encryption option:\n[1] Caesar Cipher\n[2] Vigenere Cipher\n[3] XOR Cipher")
 enc_opt = maskpass.askpass(prompt="Please input decryption option (1, 2, 3, ...): ", mask="#")
 dec.check_opt(enc_opt)
 

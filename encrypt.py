@@ -6,18 +6,21 @@ import maskpass
 
 
 def check_opt(enc_opt):
-    match enc_opt:
-        case "1":
+    match enc_opt:  
+        case "1": 
             global shift
             shift = int(maskpass.askpass(prompt="Shift key: ", mask="#"))
         case "2":
-            global raw_key
-            raw_key = maskpass.askpass(prompt="Key: ", mask="#")
+            global raw_key1
+            raw_key1 = maskpass.askpass(prompt="Key: ", mask="#")
+        case "3":
+            global raw_key2
+            raw_key2 = maskpass.askpass(prompt="Key: ", mask="#")
         case _:
             print("Wrong option")
 
 
-### ------------------- ENCRYPT ----------------------------
+### ------------------- ENCRYPT/DECRYPT ----------------------------
 
 
 def crypt(raw_message, enc_opt, enc_dec):
@@ -26,7 +29,10 @@ def crypt(raw_message, enc_opt, enc_dec):
             message = "".join(caesar_cipher(raw_message, shift, enc_dec))
             return message
         case "2":
-            message = "".join(vigenere_cipher(raw_message, raw_key, enc_dec))
+            message = "".join(vigenere_cipher(raw_message, raw_key1, enc_dec))
+            return message
+        case "3":
+            message = xor_cipher(raw_message, raw_key2)
             return message
         case _:
             print("Wrong option")
@@ -85,3 +91,18 @@ def vigenere_cipher(raw_message, raw_key, enc_dec):
                 new_message.append(base[index])
 
     return new_message
+
+
+### ------------------- XOR ----------------------------
+
+
+def xor_cipher(message, raw_key):
+    message = bytearray(message, 'utf-8')
+    key = bytearray(key_conditioner(raw_key, len(message)), 'utf-8')
+
+    new_message = bytearray(len(message))
+
+    for i in range(len(message)):
+        new_message[i] = message[i] ^ key[i]
+    
+    return new_message.decode('utf-8')
